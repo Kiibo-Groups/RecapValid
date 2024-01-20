@@ -22,5 +22,6 @@ use Illuminate\Http\Request;
 Route::group(array('namespace' => 'App\Http\Controllers\Api'), function () {
 
     Route::get('welcome','ApiController@welcome');
+    Route::get('getToken','ApiController@getToken');
     Route::post('getFilesXlsx','ApiController@getFilesXlsx');
 });
