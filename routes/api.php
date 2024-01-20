@@ -24,4 +24,6 @@ Route::group(array('namespace' => 'App\Http\Controllers\Api'), function () {
     Route::get('welcome','ApiController@welcome');
     Route::get('getToken','ApiController@getToken');
     Route::post('getFilesXlsx','ApiController@getFilesXlsx');
+    Route::get('chkToken/{srl_number}/{token}','ApiController@chkToken');
+    Route::post('chkVIN','ApiController@chkVIN');
 });

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AmisInfo extends Model
 {
+    protected $table = 'amisinfo';
+
     use HasFactory;
 
     protected $fillable = [
