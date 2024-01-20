@@ -107,7 +107,7 @@ class ApiController extends Controller {
 
                     // Registramos la informacion
                     $amisInfo = [
-                        'up_files_id' => $srl_number,
+                        'up_files_id' => $vin->id,
                         'poliza' => $request['result'][0]['records'][0]['1P&oacute;liza'],
                         'start_vig' => $request['result'][0]['records'][0]['3INICIO DE VIGENCIA'],
                         'end_vig' => $request['result'][0]['records'][0]['4FIN DE VIGENCIA'],
