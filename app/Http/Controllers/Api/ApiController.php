@@ -90,14 +90,6 @@ class ApiController extends Controller {
             $request = json_decode($output, true);
  
             if (isset($request['message'])) {
-                
-                $vin    = UpFiles::find($srl_number);
-                // Cambiamos su Status de vin validado
-                if (isset($vin->id)) {
-                    $vin->status = 1; // 1 Sin Informacion
-                    $vin->save();
-                }
-
                 return response()->json([
                     'data' => [],
                     'message' => $request['message'],
@@ -106,7 +98,7 @@ class ApiController extends Controller {
                 ]);
             }else {
                 if (count($request['result'][0]['records']) > 0) { // Tenemos respuesta
-                    $vin    = UpFiles::find($srl_number);
+                    $vin    = UpFiles::where('vin',$srl_number)->first();
                     // Cambiamos su Status de vin validado
                     if (isset($vin->id)) {
                         $vin->status = 2; // Consultado y con data
@@ -135,7 +127,7 @@ class ApiController extends Controller {
                         "code" => 400
                     ]);
                 }else {
-                    $vin    = UpFiles::find($srl_number);
+                    $vin    = UpFiles::where('vin',$srl_number)->first();
                     // Cambiamos su Status de vin validado
                     if (isset($vin->id)) {
                         $vin->status = 1; // 1 Sin Informacion
