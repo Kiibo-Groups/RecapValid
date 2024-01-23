@@ -22,7 +22,24 @@ class ApiController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('authApi:api', ['except' => ['welcome' ,'getToken', 'chkToken']]);
+        $this->middleware('authApi:api', ['except' => ['welcome' ,'getToken']]);
+    }
+
+    public function chkToken(Request $request) 
+    {
+        try {
+            return response()->json([
+                'message' => 'success_token_active',
+                'status' => "OK",
+                "code" => 200
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'token_invalid',
+                'status' => "FALSE",
+                "code" => 404
+            ]);
+        }
     }
 
     public function getToken()
@@ -38,7 +55,6 @@ class ApiController extends Controller {
         } catch (\Exception $th) {
 			return response()->json(['status' => 'ERROR','code' => 500, 'message' => $th->getMessage()], 500);
 		}
-
     }
 
     public function welcome()
@@ -71,9 +87,8 @@ class ApiController extends Controller {
 		}
     }
 
-    public function chkToken($srl_number, $token)
+    public function chkVin($srl_number, $token)
     {
-
         try {
             $url = "https://polizasvigentes.amis.com.mx/polizasvigentes/selectService/byNoSerieJson/".$srl_number."/captcha/".$token;
             $max      = 0;
@@ -147,29 +162,4 @@ class ApiController extends Controller {
 			return response()->json(['status' => 'ERROR','code' => 500, 'message' => $th->getMessage()], 500);
 		}
     }
-
-    public function chkVIN(Request $request)
-    {
-        try {
-            $id_vin = $request->get('id_vin');
-            $vin    = UpFiles::find($id_vin);
-            // Cambiamos su Status de vin validado
-            if (isset($vin->id)) {
-                $vin->status = 1;
-                $vin->save();
-            }
-
-            // Validamos si contiene informacion
-
-            return response()->json([
-                'data' => UpFiles::skip($skip)->take($take)->orderBy('id','ASC')->get(),
-                'message' => "success_data",
-                'status' => "OK",
-                "code" => 200
-            ]);
-        } catch (\Exception $th) {
-			return response()->json(['status' => 'ERROR','code' => 500, 'message' => $th->getMessage()], 500);
-		}
-    }
-
 }
