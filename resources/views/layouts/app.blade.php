@@ -97,7 +97,6 @@
                         </ul>
                     </li>
 
-                
                     <!-- Components -->
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Componentes</span></li>
  
@@ -322,5 +321,6 @@
             Swal.fire(data);
         } 
     </script>
+  
 </body>
 </html>

@@ -498,4 +498,19 @@
     }
 })();
 </script>
+
+{{-- Events TO nodeJS --}}
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('f4a78a97ccbeeec457cc', {
+    cluster: 'us3'
+});
+
+var channel = pusher.subscribe('recap-verif-v1');
+channel.bind('global_events', function(data) {
+    console.log(JSON.stringify(data));
+});
+</script>
 @endsection
