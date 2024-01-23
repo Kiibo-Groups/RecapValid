@@ -23,11 +23,11 @@ class AuthApiMiddleware extends BaseMiddleware
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json(['msg' => 'Token no es válido'], 401);
+                return response()->json(['status' => 'FALSE' ,'message' => 'Token no es válido'], 401);
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                return response()->json(['msg' => 'Token ha expirado'], 401);
+                return response()->json(['status' => 'FALSE' ,'message' => 'Token ha expirado'], 401);
             }else{
-                return response()->json(['msg' => 'Token de autorización no encontrado'], 401);
+                return response()->json(['status' => 'FALSE' ,'message' => 'Token de autorización no encontrado'], 401);
             }
         }
         return $next($request);
