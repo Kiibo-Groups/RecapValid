@@ -77,7 +77,7 @@ class ApiController extends Controller {
             $take = ($request->get('take')) ? $request->get('take') : 100; // End Limite
 
             return response()->json([
-                'data' => UpFiles::skip($skip)->take($take)->orderBy('id','ASC')->get(),
+                'data' => UpFiles::skip($skip)->take($take)->where('status',0)->orderBy('id','ASC')->get(),
                 'message' => "success_data",
                 'status' => "OK",
                 "code" => 200
