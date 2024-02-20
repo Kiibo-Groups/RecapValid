@@ -22,7 +22,7 @@ class ApiController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('authApi:api', ['except' => ['welcome' ,'getToken']]);
+        $this->middleware('authApi:api', ['except' => ['welcome' ,'getToken', 'chkVin']]);
     }
 
     public function chkToken(Request $request) 
