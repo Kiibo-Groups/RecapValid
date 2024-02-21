@@ -13,13 +13,13 @@
             {!! Form::model($data, ['url' => $form_url,'files' => true,'method' => 'POST', "autocomplete" => "off"]) !!}
             <div class="row">
                 <div class="mb-3 col-md-6">
-                    <label for="endpoint" class="form-label">Endpoint del servidor</label>
+                    <label for="endpoint_server" class="form-label">Endpoint del servidor</label>
                     <input
                     class="form-control"
                     type="text"
-                    id="endpoint"
-                    name="endpoint"
-                    value=" "
+                    id="endpoint_server"
+                    name="endpoint_server"
+                    value="{{ $data->endpoint_server }}"
                     autofocus />
                 </div>  
             </div>

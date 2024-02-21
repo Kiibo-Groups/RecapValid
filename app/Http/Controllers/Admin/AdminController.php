@@ -60,7 +60,7 @@ class AdminController extends Controller
 	*/
 	public function account()
 	{
-		$admin = User::find(1); 
+		$admin = User::find(auth()->user()->id); 
 
 		return View($this->folder.'dashboard.account',[
 			'data' 	=> $admin,
@@ -100,6 +100,18 @@ class AdminController extends Controller
 			'data' 	=> $admin,
 			'form_url' => Asset('/update_conns')
 		]); 
+	}
+
+	public function update_conns(Request $request)
+	{
+		try{
+			$admin = User::find(auth()->user()->id);
+			$admin->endpoint_server = $request->get('endpoint_server');
+			$admin->save();
+			return redirect('/conns')->with('message', 'Elemento Actualizado ...');
+		} catch (\Exception $th) {
+			return redirect('/conns')->with('error', $th->getMessage());
+		}
 	}
 
 	/*

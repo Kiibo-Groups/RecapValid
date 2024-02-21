@@ -52,7 +52,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin','prefix' => env('admin
         */
         Route::resource('conns','\App\Http\Controllers\Admin\AdminController');
         Route::get('conns',[App\Http\Controllers\Admin\AdminController::class, 'conns'])->name('conns');
-
+        Route::post('update_conns',[App\Http\Controllers\Admin\AdminController::class, 'update_conns']);
         /*
         |-----------------------------------------
         | Logout
