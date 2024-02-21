@@ -145,7 +145,7 @@ class ApiController extends Controller {
                     $vin    = UpFiles::where('vin',$srl_number)->first();
                     // Cambiamos su Status de vin validado
                     if (isset($vin->id)) {
-                        $vin->status = 1; // 1 Sin Informacion
+                        $vin->status = 1; // 1 Consultado y Sin Informacion
                         $vin->save();
                     }
                     
