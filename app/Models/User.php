@@ -26,7 +26,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'shw_password',
-        'endpoint_server'
+        'endpoint_server',
+        'folder_cron'
     ];
 
     /**

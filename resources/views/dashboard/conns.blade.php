@@ -23,6 +23,19 @@
                     autofocus />
                 </div>  
             </div>
+
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                  <label for="folder_cron" class="form-label">Ruta del archivo CRON</label>
+                  <input
+                  class="form-control"
+                  type="text"
+                  id="folder_cron"
+                  name="folder_cron"
+                  value="{{ $data->folder_cron }}"
+                  autofocus />
+              </div>  
+          </div>
             <div class="mt-2">
               <button type="submit" class="btn btn-primary me-2">Guardar cambios</button>
             </div>

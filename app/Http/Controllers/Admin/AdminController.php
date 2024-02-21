@@ -107,8 +107,9 @@ class AdminController extends Controller
 		try{
 			$admin = User::find(auth()->user()->id);
 			$admin->endpoint_server = $request->get('endpoint_server');
+			$admin->folder_cron		= $request->get('folder_cron');
 			$admin->save();
-			return redirect('/conns')->with('message', 'Elemento Actualizado ...');
+			return redirect('/conns')->with('message', 'Elementos Actualizados ...');
 		} catch (\Exception $th) {
 			return redirect('/conns')->with('error', $th->getMessage());
 		}
