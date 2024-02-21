@@ -66,4 +66,40 @@ class User extends Authenticatable implements JWTSubject
         
         return $token;
     }
+
+    public function overview()
+	{
+		return [ 
+			'tot_pet'  		=> UpFiles::where('status',1)->orWhere('status',2)->count(),
+			'pos_pet'  		=> UpFiles::where('status',2)->count(),
+            'porcent_pet'  	=> $this->porcent_petitions(),
+            'porcen_pet_pos' => $this->porcent_petitions_pos(),
+
+			'cobroHoy'      => UpFiles::whereDate('updated_at','LIKE','%'.date('m-d').'%')->count(),
+			'in_process'    => 25
+		];
+	}
+
+
+    public function porcent_petitions()
+    {
+
+        $tot_pet = UpFiles::where('status',1)->orWhere('status',2)->count();
+        $tot_files = UpFiles::count();
+
+        $porcent_check = round(($tot_pet * 100) / $tot_files,0);
+
+        return $porcent_check;
+    }
+
+    public function porcent_petitions_pos()
+    {
+
+        $tot_pet = UpFiles::where('status',2)->count();
+        $tot_files = UpFiles::count();
+
+        $porcent_check = round(($tot_pet * 100) / $tot_files,0);
+
+        return $porcent_check;
+    }
 }

@@ -41,6 +41,11 @@ class AdminController extends Controller
 	{
 		$admin = new User; 
 
+		return response()->json([
+			'form_url' => Asset('/dash'),
+			'overview' => $admin->overview()
+		]);
+
 		return View($this->folder.'dashboard.home',[
 			'form_url' => Asset('/dash')
 		]); 

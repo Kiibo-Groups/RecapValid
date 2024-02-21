@@ -30,4 +30,7 @@ class UpFiles extends Model
         'propietarios',
         'status',
     ];
+
+
+   
 }
