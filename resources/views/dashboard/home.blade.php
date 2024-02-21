@@ -115,11 +115,11 @@
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                                 <div class="card-title">
                                     <h5 class="text-nowrap mb-2">Reporte general</h5>
-                                    <span class="badge bg-label-warning rounded-pill">17/01/2012</span>
+                                    <span class="badge bg-label-warning rounded-pill">{{ date('d/m/yyyy') }}</span>
                                 </div>
                                 <div class="mt-sm-auto">
                                     <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> {{ $overview['porcent_pet'] }}%</small>
-                                    <h3 class="mb-0">{{ $overview['tot_files'] }}</h3>
+                                    <h3 class="mb-0">{{ number_format($overview['pos_pet']) }} / {{ number_format($overview['tot_files']) }}</h3>
                                 </div>
                             </div>
                             <div id="profileReportChart"></div>
