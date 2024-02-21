@@ -26,8 +26,15 @@ class AdminController extends Controller
 			return Redirect::to('/login');
 		}else {
 			$admin = new User; 
+		
+			// return response()->json([
+			// 	'form_url' => Asset('/dash'),
+			// 	'overview' => $admin->overview()
+			// ]);
+			
 			return View($this->folder.'dashboard.home',[
-				'form_url' => Asset('/dash')
+				'form_url' => Asset('/dash'),
+				'overview' => $admin->overview()
 			]);    
 		}
 	}
@@ -39,12 +46,7 @@ class AdminController extends Controller
 	*/
 	public function home()
 	{
-		$admin = new User; 
-
-		return response()->json([
-			'form_url' => Asset('/dash'),
-			'overview' => $admin->overview()
-		]);
+		
 
 		return View($this->folder.'dashboard.home',[
 			'form_url' => Asset('/dash')

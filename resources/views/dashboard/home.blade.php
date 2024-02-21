@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-primary">Bienvenido(a) de nuevo! 🎉</h5>
                         <p class="mb-4">
-                        Se han creado <span class="fw-bold">1500</span> Peticiones al servidor desde tu ultimo ingreso.
+                        Se han creado <span class="fw-bold">{{ $overview['tot_pet'] }}</span> Peticiones al servidor desde tu ultimo ingreso.
                         </p>
 
                         <a href="javascript:;" class="btn btn-sm btn-outline-primary">Ver avance de peticiones</a>
@@ -47,7 +47,7 @@
                 <div class="col-md-4">
                     
                     <div id="growthChart"></div>
-                    <div class="text-center fw-semibold pt-3 mb-2">15% Solicitudes realizadas</div>
+                    <div class="text-center fw-semibold pt-3 mb-2">{{ $overview['porcent_pet'] }}% Solicitudes realizadas</div>
 
                     <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
                         <div class="d-flex">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <small>HOY</small>
-                                <h6 class="mb-0">500</h6>
+                                <h6 class="mb-0">{{ $overview['cobroHoy'] }}</h6>
                             </div>
                         </div>
                         <div class="d-flex">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <small>En Proceso</small>
-                                <h6 class="mb-0">250</h6>
+                                <h6 class="mb-0">{{ $overview['in_process'] }}</h6>
                             </div>
                         </div>
                     </div>
@@ -87,8 +87,8 @@
                         </div>
 
                         <span class="d-block mb-1">Peticiones</span>
-                        <h3 class="card-title text-nowrap mb-2">1,525</h3>
-                        <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> 15%</small>
+                        <h3 class="card-title text-nowrap mb-2">{{ $overview['tot_pet'] }}</h3>
+                        <small class="text-danger fw-semibold"><i class="bx bx-up-arrow-alt"></i> {{ $overview['porcent_pet'] }}%</small>
                     </div>
                 </div>
             </div>
@@ -102,8 +102,8 @@
                             </div> 
                         </div>
                         <span class="fw-semibold d-block mb-1">Positivas</span>
-                        <h3 class="card-title mb-2">1,400</h3>
-                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> 90%</small>
+                        <h3 class="card-title mb-2">{{ $overview['pos_pet'] }}</h3>
+                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> {{ $overview['porcen_pet_pos'] }}%</small>
                     </div>
                 </div>
             </div>
@@ -118,8 +118,8 @@
                                     <span class="badge bg-label-warning rounded-pill">17/01/2012</span>
                                 </div>
                                 <div class="mt-sm-auto">
-                                    <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> 68.2%</small>
-                                    <h3 class="mb-0">1,500k</h3>
+                                    <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> {{ $overview['porcent_pet'] }}%</small>
+                                    <h3 class="mb-0">{{ $overview['tot_files'] }}</h3>
                                 </div>
                             </div>
                             <div id="profileReportChart"></div>
@@ -156,7 +156,7 @@
     // --------------------------------------------------------------------
     const growthChartEl = document.querySelector('#growthChart'),
     growthChartOptions = {
-        series: [90],
+        series: ["{{ $overview['porcen_pet_pos'] }}"],
         labels: ['Positivas'],
         chart: {
         height: 240,
@@ -240,11 +240,11 @@
     totalRevenueChartOptions = {
         series: [
         {
-            name: '2021',
+            name: 'Realizadas positivas',
             data: [18, 7, 15, 29, 18, 12, 9]
         },
         {
-            name: '2020',
+            name: 'Realizas sin información',
             data: [-13, -18, -9, -14, -5, -17, -15]
         }
         ],

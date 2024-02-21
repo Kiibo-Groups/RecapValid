@@ -70,11 +70,11 @@ class User extends Authenticatable implements JWTSubject
     public function overview()
 	{
 		return [ 
+            'tot_files'     => UpFiles::count(),
 			'tot_pet'  		=> UpFiles::where('status',1)->orWhere('status',2)->count(),
 			'pos_pet'  		=> UpFiles::where('status',2)->count(),
             'porcent_pet'  	=> $this->porcent_petitions(),
-            'porcen_pet_pos' => $this->porcent_petitions_pos(),
-
+            'porcen_pet_pos' => $this->porcent_petitions_pos(), 
 			'cobroHoy'      => UpFiles::whereDate('updated_at','LIKE','%'.date('m-d').'%')->count(),
 			'in_process'    => 25
 		];
