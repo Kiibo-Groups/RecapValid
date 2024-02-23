@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-primary">Bienvenido(a) de nuevo! 🎉</h5>
                         <p class="mb-4">
-                        Se han creado <span class="fw-bold">{{ $overview['tot_pet'] }}</span> Peticiones al servidor desde tu ultimo ingreso.
+                        Se han creado <span class="fw-bold">{{ number_format($overview['tot_pet']) }}</span> Peticiones al servidor desde tu ultimo ingreso.
                         </p>
 
                         <a href="javascript:;" class="btn btn-sm btn-outline-primary">Ver avance de peticiones</a>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <small>HOY</small>
-                                <h6 class="mb-0">{{ $overview['cobroHoy'] }}</h6>
+                                <h6 class="mb-0">{{ number_format($overview['cobroHoy']) }}</h6>
                             </div>
                         </div>
                         <div class="d-flex">
@@ -87,7 +87,7 @@
                         </div>
 
                         <span class="d-block mb-1">Peticiones</span>
-                        <h3 class="card-title text-nowrap mb-2">{{ $overview['tot_pet'] }}</h3>
+                        <h3 class="card-title text-nowrap mb-2">{{ number_format($overview['tot_pet']) }}</h3>
                         <small class="text-danger fw-semibold"><i class="bx bx-up-arrow-alt"></i> {{ $overview['porcent_pet'] }}%</small>
                     </div>
                 </div>

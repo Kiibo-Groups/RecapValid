@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Exports\PolizaExport;
+use App\Exports\AllPolizasExport;
+
 use App\Models\{UpFiles, AmisInfo};
 
 use Excel;
@@ -21,7 +24,7 @@ class UPXLSXController extends Controller
     public function index()
     {
         return View($this->folder.'index',[
-			'data' 	=> UpFiles::paginate(100),
+			'data' 	=> UpFiles::orderBy('status','DESC')->paginate(100),
 			'link' 	=> '/upload_xlsx/'
 		]);
     }
@@ -38,6 +41,8 @@ class UPXLSXController extends Controller
 			'form_url' 	=> '/upload_xlsx'
 		]);
     }
+
+     
 
     /**
      * Store a newly created resource in storage.
@@ -108,7 +113,6 @@ class UPXLSXController extends Controller
                     }
                 }
             }
-            
             return redirect('/upload_xlsx')->with('message', 'Nuevos Elementos Agregados...');
         } catch (\Exception $th) {
             return redirect('/upload_xlsx')->with('error', $th->getMessage());
@@ -174,5 +178,147 @@ class UPXLSXController extends Controller
 		$res->save();
 
 		return redirect('/upload_xlsx')->with('message','Estatus del Elemento actualizado con éxito...');
+    }
+
+    /**
+     * Imprimir info individual
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download_info(Request $Request)
+    {
+        return Excel::download(new PolizaExport, 'poliza_'. $Request->get('id').'_.xlsx');
+    }
+
+    public function reports_filex()
+    {
+        return View($this->folder.'index_report',[
+			'form_url' 	=> '/_reports_filex/'
+		]);
+    }
+
+    public function _reports_filex(Request $Request)
+    {
+        
+        // return response()->json([
+        //     'date' => date('Y-m-d',strtotime($data['from'])),
+        //     'data' => $data,
+        //     'res' => $res
+        // ]);
+
+        return Excel::download(new AllPolizasExport, 'polizas_info_.xlsx');
+    }
+
+    /**
+     * Busqueda de Info
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllFilex()
+    {
+        $municipios = UpFiles::distinct(['municipio'])->get(['municipio']);
+        $colonias = UpFiles::distinct(['colonia'])->get(['colonia']);
+
+        return response()->json([
+            'municipios' => $municipios,
+            'colonias'   => $colonias
+        ]);
+    }
+
+    public function FilexSerach(Request $Request){
+
+        $search = $Request->get('search');
+ 
+        $UpFiles = UpFiles::where(function($query) use($search){
+            $query->whereRaw('lower(vin) like "%' . strtolower($search) . '%"');
+        })->limit(100)->orderBy('status','DESC')->get();
+
+        $req = '';
+        $ths = [];
+        foreach ($UpFiles as $key => $row) {
+            
+            $req .= '<tr>';
+            $req .= '<th>'.$row->id.'</th>';
+            $req .= '<td>'.$row->municipio.'</td>';
+            $req .= '<td>'.$row->colonia.'</td>'; 
+            $req .= '<td>'.$row->vin.'</td>';
+            $req .= '<td>'.$row->placa.'</td>';
+            $req .= '<td>'.$row->adeudo.'</td>'; 
+
+            if ($row->status == 0){
+                $req .= '<td><span class="badge bg-label-danger me-1">Sin consultar</span></td>';
+            }elseif($row->status == 1){
+                $req .= '<td><span class="badge bg-label-warning me-1">Sin información</span></td>';
+            }elseif($row->status == 2){
+                $req .= '<td><span class="badge bg-label-success me-1">Data Lista</span></td>';
+            }
+            
+            $req .= '</td>
+                <td>
+                <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="'.Asset('/upload_xlsx/' . $row->id . "/edit").'" >
+                            <i class="bx bx-edit-alt me-1"></i> Edit
+                        </a>';
+
+                        if($row->status == 2){
+                            $req .= '<form method="post" action="upload_xlsx/download_info" class="col-12">
+                            <input type="hidden" name="_token" value="'.csrf_token().'">
+                            <button class="dropdown-item">
+                                <input type="hidden" name="id" value="'.$row->id.'">
+                                <i class="bx bx-download me-1"></i> Descargar Info
+                            </button>
+                            </form>';
+                        }     
+
+            $req .= '<a class="dropdown-item" href="'.Asset("/upload_xlsx/delete/" . $row->id).'">
+                    <i class="bx bx-trash me-1"></i> Delete
+                </a>';
+            $req .= '</div></div></td>';
+
+            $req .= '</tr>';
+
+
+            $ths[] = $req;
+
+            $req = '';
+        }
+          
+        return response()->json([
+            'data' => $ths
+        ]);
+    }
+
+    public function FilexSearchCats(Request $Request) {
+
+        $municipio = ($Request->get('municipio')) ? $Request->get('municipio') : 'null';
+        $colonia  = ($Request->get('colonia')) ? $Request->get('colonia') : 'null';
+
+        $UpFiles = UpFiles::where(function($query) use($municipio, $colonia){
+            if ($municipio != 'null') {
+                $query->whereRaw('lower(municipio) like "%' . strtolower($municipio) . '%"');
+            }
+
+            if ($colonia != 'null') {
+                $query->whereRaw('lower(colonia) like "%' . strtolower($colonia) . '%"');
+            }
+        })->orderBy('status','DESC')->paginate(100);
+
+        // return response()->json([
+		// 	'data' 	=> $UpFiles,
+		// 	'link' 	=> '/upload_xlsx/'
+		// ]);
+
+        return View($this->folder.'index',[
+			'data' 	=> $UpFiles,
+			'link' 	=> '/upload_xlsx/',
+            'municipio' => $municipio,
+            'colonia' => $colonia
+		]);
     }
 }

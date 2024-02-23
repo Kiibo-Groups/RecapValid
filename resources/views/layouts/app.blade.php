@@ -106,6 +106,13 @@
                         <div data-i18n="Basic">Listado Vehicular</div>
                         </a>
                     </li> 
+
+                    <li class="menu-item @if(Route::is('upload_xlsx.reports_filex')) active @endif">
+                        <a href="{{ route('upload_xlsx.reports_filex') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-box"></i>
+                        <div data-i18n="Basic">Reporte de Póliza</div>
+                        </a>
+                    </li> 
                     </ul>
             </aside>
             <!-- / Menu -->
@@ -313,7 +320,12 @@
 
                         window.location = url;
                     }
-        })
+            });
+        }
+
+        function ViewData()
+        {
+            
         }
 
         function showMsg(data)

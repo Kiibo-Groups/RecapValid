@@ -32,8 +32,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin','prefix' => env('admin
         Route::get('upload_file',[App\Http\Controllers\Admin\UPXLSXController::class, 'upload_file'])->name('upload_file');
         Route::get('upload_xlsx/delete/{id}',[App\Http\Controllers\Admin\UPXLSXController::class, 'delete']);
         Route::get('upload_xlsx/status/{id}',[App\Http\Controllers\Admin\UPXLSXController::class, 'status']); 
+        Route::post('upload_xlsx/download_info',[App\Http\Controllers\Admin\UPXLSXController::class, 'download_info']);
         Route::post('upload_file_xlsx',[App\Http\Controllers\Admin\UPXLSXController::class, 'upload_file_xlsx']);
-
+        Route::get('getAllFilex',[App\Http\Controllers\Admin\UPXLSXController::class, 'getAllFilex'])->name('upload_xlsx.getAllFilex');
+        Route::post('FilexSerach',[App\Http\Controllers\Admin\UPXLSXController::class, 'FilexSerach'])->name('upload_xlsx.FilexSerach');
+        Route::post('FilexSearchCats',[App\Http\Controllers\Admin\UPXLSXController::class, 'FilexSearchCats'])->name('upload_xlsx.FilexSearchCats');
+        Route::get('reports_filex',[App\Http\Controllers\Admin\UPXLSXController::class, 'reports_filex'])->name('upload_xlsx.reports_filex');
+        Route::post('_reports_filex',[App\Http\Controllers\Admin\UPXLSXController::class, '_reports_filex']);
 
         /*
         |-----------------------------------------
