@@ -210,7 +210,7 @@ class UPXLSXController extends Controller
         return Excel::download(new AllPolizasExport, 'polizas_info_.xlsx');
     }
 
-    /**
+    /** 
      * Busqueda de Info
      *
      * @param  int  $id

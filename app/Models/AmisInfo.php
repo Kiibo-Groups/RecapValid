@@ -50,7 +50,7 @@ class AmisInfo extends Model
             if($data['type'])
             {
                 if ($data['type'] == 'all') {
-                    $query->whereRaw('status',[0,1,2]);
+                    $query->whereIn('status',[0,1,2]);
                 }
 
                 if ($data['type'] == 'status_true') {
@@ -62,7 +62,7 @@ class AmisInfo extends Model
                 }
             }
         })->orderBy('id','ASC')->get();
-   
+
         $allData = []; 
 
         foreach($res as $row)
