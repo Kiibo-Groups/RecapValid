@@ -90,7 +90,7 @@ class AmisInfo extends Model
             {
                 $query->whereDate('upload_xlsx.created_at','<=',$to);
             }
-        })->orderBy('id','ASC')->limit(100)->get();
+        })->orderBy('id','ASC')->limit(10000)->get();
 
         $allData = []; 
 
