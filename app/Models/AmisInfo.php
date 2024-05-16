@@ -83,12 +83,12 @@ class AmisInfo extends Model
 
             if($from)
             {
-                $query->whereDate('orders.created_at','>=',$from);
+                $query->whereDate('upload_xlsx.created_at','>=',$from);
             }
 
             if($to)
             {
-                $query->whereDate('orders.created_at','<=',$to);
+                $query->whereDate('upload_xlsx.created_at','<=',$to);
             }
         })->orderBy('id','ASC')->get();
 
