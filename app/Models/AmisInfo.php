@@ -61,6 +61,35 @@ class AmisInfo extends Model
                     $query->where('status',1);
                 }
             }
+
+
+            if(isset($data['from']))
+            {
+                $from = date('Y-m-d',strtotime($data['from']));
+            }
+            else
+            {
+                $from = null;
+            }
+
+            if(isset($data['to']))
+            {
+                $to = date('Y-m-d',strtotime($data['to']));
+            }
+            else
+            {
+                $to = null;
+            }
+
+            if($from)
+            {
+                $query->whereDate('orders.created_at','>=',$from);
+            }
+
+            if($to)
+            {
+                $query->whereDate('orders.created_at','<=',$to);
+            }
         })->orderBy('id','ASC')->get();
 
         $allData = []; 
