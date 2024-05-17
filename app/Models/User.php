@@ -102,7 +102,11 @@ class User extends Authenticatable implements JWTSubject
         $tot_pet = UpFiles::where('status',2)->count();
         $tot_files = UpFiles::count();
 
-        $porcent_check = round(($tot_pet * 100) / $tot_files,0);
+        $porcent_check = 0;
+        if ($tot_pet > 0) {
+            $porcent_check = round(($tot_pet * 100) / $tot_files,0);
+        }
+
 
         return $porcent_check;
     }
