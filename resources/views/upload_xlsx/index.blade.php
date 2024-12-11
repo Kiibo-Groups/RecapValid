@@ -2,7 +2,7 @@
 @section('title_page') Viendo /&nbsp; <strong>Listado de automovíles </strong>@endsection
     
 @section('css')
-    <!-- Tablesaw css -->
+    <!-- Tablesaw css
     <link href="{{ asset('assets/vendor/libs/tablesaw/tablesaw.css') }}" rel="stylesheet" type="text/css" />
     
     <link href="{{ asset('assets/vendor/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
@@ -15,12 +15,12 @@
 
     <link href="{{ asset('assets/css/config/default/bootstrap-dark.min.css') }}" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled="disabled" />
     <link href="{{ asset('assets/css/config/default/app-dark.min.css') }}" rel="stylesheet" type="text/css" id="app-dark-stylesheet" disabled="disabled" />
-
+ -->
 @endsection
 @section('content') 
 
-<!-- Basic Bootstrap Table -->
-<div class="card">
+<!-- Basic Bootstrap Table --> 
+<div class="card py-3 m-b-30">
     <div class="card-header d-flex align-items-center justify-content-between">
         <small class="list-group-item list-group-item-danger">
             IMPORTANTE! Todos los días a las 12 a.m. se realizan 10,000 peticiones a los servidores de amis.com.mx
@@ -93,89 +93,89 @@
         <div class="col-sm-12 col-md-12 col-lg-12  mt-3">
             {!! $data->appends(request()->except('page'))->links() !!}
         </div>
-         
+        
     </div>
 
     <div class="card-body">
         <div class="text-nowrap table-responsive">
             <table id="table-filex" class="table-responsive table" data-tablesaw-sortable data-tablesaw-sortable-switch>
-              <thead>
+            <thead>
                 <tr>
-                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">#</th>
-                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Municipio</th>
-                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Colonia</th>
-                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">VIN</th>
-                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Placa</th>
-                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Adeudo</th>
-                  <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="6">Status</th>
-                  <th>Acciones</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">#</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Municipio</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Colonia</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">VIN</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Placa</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5">Adeudo</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="6">Status</th>
+                <th>Acciones</th>
                 </tr>
-              </thead>
-              <tbody>
-                  @foreach ($data as $row)
-                  <tr>
-                      <th>{{ $row->id }}</th>
-                      <td>
-                          {{ $row->municipio }}
-                      </td>
-                      <td>
-                          {{ $row->colonia }}
-                      </td> 
-                      <td>
-                          {{ $row->vin }}
-                      </td>
-                      <td>
-                          {{ $row->placa }}
-                      </td>
-                      <td>
-                          {{ $row->adeudo }}
-                      </td> 
-                      <td>
-                          {{-- Sin consultar --}}
-                          @if ($row->status == 0)
-                          <span class="badge bg-label-danger me-1">Sin consultar</span>
-                          
-                          {{-- Consultado pero sin data --}}
-                          @elseif($row->status == 1)
-                          <span class="badge bg-label-warning me-1">Sin información</span>
-                          
-                          {{-- Consultado y con data --}}
-                          @elseif($row->status == 2)
-                          <span class="badge bg-label-success me-1">Data Lista</span>
-                          @endif
-                      </td>
-                      <td>
-                      <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                              <a class="dropdown-item" href="{{ Asset($link . $row->id . '/edit') }}" >
-                                  <i class="bx bx-edit-alt me-1"></i> Edit
-                              </a>
-                              @if($row->status == 2)
-                              {!! Form::open(['url' => ['upload_xlsx/download_info'],'target' => '_blank'],['class' => 'col s12']) !!}
+            </thead>
+            <tbody>
+                @foreach ($data as $row)
+                <tr>
+                    <th>{{ $row->id }}</th>
+                    <td>
+                        {{ $row->municipio }}
+                    </td>
+                    <td>
+                        {{ $row->colonia }}
+                    </td> 
+                    <td>
+                        {{ $row->vin }}
+                    </td>
+                    <td>
+                        {{ $row->placa }}
+                    </td>
+                    <td>
+                        {{ $row->adeudo }}
+                    </td> 
+                    <td>
+                        {{-- Sin consultar --}}
+                        @if ($row->status == 0)
+                        <span class="badge bg-label-danger me-1">Sin consultar</span>
+                        
+                        {{-- Consultado pero sin data --}}
+                        @elseif($row->status == 1)
+                        <span class="badge bg-label-warning me-1">Sin información</span>
+                        
+                        {{-- Consultado y con data --}}
+                        @elseif($row->status == 2)
+                        <span class="badge bg-label-success me-1">Data Lista</span>
+                        @endif
+                    </td>
+                    <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ Asset($link . $row->id . '/edit') }}" >
+                                <i class="bx bx-edit-alt me-1"></i> Edit
+                            </a>
+                            @if($row->status == 2)
+                            {!! Form::open(['url' => ['upload_xlsx/download_info'],'target' => '_blank'],['class' => 'col s12']) !!}
                                 <button class="dropdown-item">
                                     <input type="hidden" name="id" value="{{ $row->id }}">
                                     <i class="bx bx-download me-1"></i> Descargar Info
                                 </button>
-                              </form>
-                              @endif
-                              <a class="dropdown-item" href="javascript:void(0);" onclick="deleteConfirm('{{ Asset($link . 'delete/' . $row->id) }}')">
-                                  <i class="bx bx-trash me-1"></i> Delete
-                              </a>
-                          </div>
-                      </div>
-                      </td>
-                  </tr>
-                  @endforeach
-              </tbody>
+                            </form>
+                            @endif
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="deleteConfirm('{{ Asset($link . 'delete/' . $row->id) }}')">
+                                <i class="bx bx-trash me-1"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
             </table>
-          </div>
+        </div>
     </div>
 </div>
 
-
+ 
 <section style="margin-top:25px;">
     {!! $data->appends(request()->except('page'))->links() !!}
 </section>

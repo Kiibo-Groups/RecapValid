@@ -8,128 +8,50 @@
 @endsection
 
 @section('content')
+
 <div class="row">
-    <div class="col-lg-12 mb-4 order-0">
+    <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
         <div class="card">
-            <div class="d-flex align-items-end row">
-                <div class="col-sm-7">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">Bienvenido(a) de nuevo! 🎉</h5>
-                        <p class="mb-4">
-                        Se han creado <span class="fw-bold">{{ number_format($overview['tot_pet']) }}</span> Peticiones al servidor desde tu ultimo ingreso.
-                        </p>
-
-                        <a href="javascript:;" class="btn btn-sm btn-outline-primary">Ver avance de peticiones</a>
-                    </div>
+            <div class="card-body text-center">
+                <h5 class="mb-2 text-dark font-weight-normal">Peticiones</h5>
+                <h2 class="mb-4 text-dark font-weight-bold">{{ number_format($overview['tot_pet']) }}</h2>
+                <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent">
+                    <img src="{{ asset('assets/img/icons/unicons/chart.png') }}" class="absolute-center" style="width: 40px;height: 40px;border-radius: 2003px;top:47% !important;" />
                 </div>
-                <div class="col-sm-5 text-center text-sm-left">
-                    <div class="card-body pb-0 px-0 px-md-4">
-                        <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}"
-                            height="140"
-                            alt="View Badge User"
-                            data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                            data-app-light-img="illustrations/man-with-laptop-light.png" />
-                    </div>
-                </div>
+                <p class="mt-4 mb-0">Porcentaje</p>
+                <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{ $overview['porcent_pet'] }}%</h3>
             </div>
         </div>
     </div>
- 
-    <!-- Total Revenue -->
-    <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+
+    <div class="col-xl-4 col-lg-6 col-sm-6 grid-margin stretch-card">
         <div class="card">
-            <div class="row row-bordered g-0">
-                <div class="col-md-8">
-                    <h5 class="card-header m-0 me-2 pb-3">Solicitudes en tiempo real</h5>
-                    <div id="totalRevenueChart" class="px-2"></div>
-                </div>
-
-                <div class="col-md-4">
-                    
-                    <div id="growthChart"></div>
-                    <div class="text-center fw-semibold pt-3 mb-2">{{ $overview['porcent_pet'] }}% Solicitudes realizadas</div>
-
-                    <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
-                        <div class="d-flex">
-                            <div class="me-2">
-                                <span class="badge bg-label-primary p-2"><i class="bx bx-time-five text-primary"></i></span>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <small>HOY</small>
-                                <h6 class="mb-0">{{ number_format($overview['cobroHoy']) }}</h6>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="me-2">
-                                <span class="badge bg-label-info p-2"><i class="bx bx-time-five text-info"></i></span>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <small>En Proceso</small>
-                                <h6 class="mb-0">{{ $overview['in_process'] }}</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="card-body text-center">
+            <h5 class="mb-2 text-dark font-weight-normal">Positivas</h5>
+            <h2 class="mb-4 text-dark font-weight-bold">{{ $overview['pos_pet'] }}</h2>
+            <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent">
+                <img src="{{ asset('assets/img/icons/unicons/chart-success.png') }}" class="absolute-center text-dark" style="width: 40px;height: 40px;border-radius: 2003px;top:47% !important;"  />
             </div>
+            <p class="mt-4 mb-0">Porcentaje</p>
+            <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{ $overview['porcen_pet_pos'] }}%</h3>
+        </div>
         </div>
     </div>
 
-    <!--/ Total Revenue -->
-    <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-        <div class="row">
-            <div class="col-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                                <img src="{{ asset('assets/img/icons/unicons/chart.png') }}" alt="Peticiones" class="rounded" />
-                            </div> 
-                        </div>
-
-                        <span class="d-block mb-1">Peticiones</span>
-                        <h3 class="card-title text-nowrap mb-2">{{ number_format($overview['tot_pet']) }}</h3>
-                        <small class="text-danger fw-semibold"><i class="bx bx-up-arrow-alt"></i> {{ $overview['porcent_pet'] }}%</small>
-                    </div>
-                </div>
+    <div class="col-xl-4  col-lg-6 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+        <div class="card-body text-center">
+            <h5 class="mb-2 text-dark font-weight-normal">Reporte general</h5>
+            <h2 class="mb-4 text-dark font-weight-bold">{{ date('Y-d-m') }}</h2>
+            <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent">
+                <i class="mdi mdi-eye icon-md absolute-center text-dark"></i>
             </div>
-            
-            <div class="col-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                                <img src="{{ asset('assets/img/icons/unicons/chart-success.png') }}" alt="Peticiones" class="rounded" />
-                            </div> 
-                        </div>
-                        <span class="fw-semibold d-block mb-1">Positivas</span>
-                        <h3 class="card-title mb-2">{{ $overview['pos_pet'] }}</h3>
-                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> {{ $overview['porcen_pet_pos'] }}%</small>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-12 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                            <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                                <div class="card-title">
-                                    <h5 class="text-nowrap mb-2">Reporte general</h5>
-                                    <span class="badge bg-label-warning rounded-pill">{{ date('d/m/yyyy') }}</span>
-                                </div>
-                                <div class="mt-sm-auto">
-                                    <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i> {{ $overview['porcent_pet'] }}%</small>
-                                    <h3 class="mb-0">{{ number_format($overview['pos_pet']) }} / {{ number_format($overview['tot_files']) }}</h3>
-                                </div>
-                            </div>
-                            <div id="profileReportChart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p class="mt-4 mb-0">Porcentaje</p>
+            <h3 class="mb-0 font-weight-bold mt-2 text-dark">{{ $overview['porcent_pet'] }}%</h3>
+            <h3 class="mb-0">{{ number_format($overview['pos_pet']) }} / {{ number_format($overview['tot_files']) }}</h3>
         </div>
-    </div>
-
+        </div>
+    </div> 
 </div>
  
 @endsection
@@ -144,6 +66,81 @@
 'use strict';
 
 (function () {
+    let value_porcent_pet = 0+".{{ $overview['porcent_pet'] }}"; 
+
+    if ($(".dashboard-progress-1").length) {
+        $('.dashboard-progress-1').circleProgress({
+            value:value_porcent_pet,
+            size: 125,
+            thickness: 7,
+            startAngle: 80,
+            fill: {
+                gradient: ["#7922e5", "#1579ff"]
+            }
+        });
+    }
+    if ($(".dashboard-progress-1-dark").length) {
+        $('.dashboard-progress-1-dark').circleProgress({
+            value:value_porcent_pet,
+            size: 125,
+            thickness: 7,
+            startAngle: 10,
+            emptyFill: '#eef0fa',
+            fill: {
+                gradient: ["#7922e5", "#1579ff"]
+            }
+        });
+    }
+
+    let value_porcen_pet_pos = 0+".{{ $overview['porcen_pet_pos'] }}"; 
+    if ($(".dashboard-progress-2").length) {
+        $('.dashboard-progress-2').circleProgress({
+            value: value_porcen_pet_pos,
+            size: 125,
+            thickness: 7,
+            startAngle: 10,
+            fill: {
+                gradient: ["#429321", "#b4ec51"]
+            }
+        });
+    }
+    if ($(".dashboard-progress-2-dark").length) {
+        $('.dashboard-progress-2-dark').circleProgress({
+            value: value_porcen_pet_pos,
+            size: 125,
+            thickness: 7,
+            startAngle: 10,
+            emptyFill: '#eef0fa',
+            fill: {
+                gradient: ["#429321", "#b4ec51"]
+            }
+        });
+    }
+ 
+    if ($(".dashboard-progress-3").length) {
+        $('.dashboard-progress-3').circleProgress({
+            value: value_porcent_pet,
+            size: 125,
+            thickness: 7,
+            startAngle: 10,
+            fill: {
+                gradient: ["#f76b1c", "#fad961"]
+            }
+        });
+    }
+    if ($(".dashboard-progress-3-dark").length) {
+        $('.dashboard-progress-3-dark').circleProgress({
+            value: value_porcent_pet,
+            size: 125,
+            thickness: 7,
+            startAngle: 10,
+            emptyFill: '#eef0fa',
+            fill: {
+                gradient: ["#f76b1c", "#fad961"]
+            }
+        });
+    }
+
     let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
     cardColor = config.colors.white;
