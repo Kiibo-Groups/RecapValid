@@ -74,7 +74,7 @@ class User extends Authenticatable implements JWTSubject
 		return [ 
             'tot_files'     => UpFiles::count(),
 			'tot_pet'  		=> UpFiles::where('status',1)->orWhere('status',2)->count(),
-			'pos_pet'  		=> UpFiles::where('status',2)->count(),
+			'pos_pet'  		=> AmisInfo::count(),
             'porcent_pet'  	=> $this->porcent_petitions(),
             'porcen_pet_pos' => $this->porcent_petitions_pos(), 
 			'cobroHoy'      => UpFiles::whereDate('updated_at','LIKE','%'.date('m-d').'%')->count(),
@@ -86,7 +86,7 @@ class User extends Authenticatable implements JWTSubject
     public function porcent_petitions()
     {
 
-        $tot_pet = UpFiles::where('status',1)->orWhere('status',2)->count();
+        $tot_pet = AmisInfo::count(); //UpFiles::where('status',1)->orWhere('status',2)->count();
         $tot_files = UpFiles::count();
         $porcent_check = 0;
         if ($tot_pet > 0) {
